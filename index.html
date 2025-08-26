@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krupakar Gurije | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0D0D0D;
+            --panel-dark: #1A1A1A;
+            --accent-cyan: #00FFFF;
+            --accent-purple: #9D00FF;
+            --text-light: #E0E0E0;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .section-panel {
+            background-color: var(--panel-dark);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .accent-gradient {
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .border-gradient {
+            border: 2px solid transparent;
+            background: linear-gradient(var(--panel-dark), var(--panel-dark)) padding-box,
+                        linear-gradient(90deg, var(--accent-purple), var(--accent-cyan)) border-box;
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+            color: var(--text-light);
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-5px);
+            color: var(--accent-cyan);
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+            perspective: 1000px;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 255, 255, 0.2);
+        }
+        
+        .project-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .project-card:hover .project-card-inner {
+            transform: rotateY(10deg);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active-nav::after {
+            width: 100%;
+        }
+        
+        .skill-pill {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-pill:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .typing-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 24px;
+            background-color: var(--accent-cyan);
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-purple), var(--accent-cyan));
+            left: 10px;
+            top: 0;
+        }
+        
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .btn-hover-effect {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-hover-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        
+        .btn-hover-effect:hover::before {
+            left: 100%;
+        }
+        
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-light);
+            font-size: 24px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-opacity-80 backdrop-blur-md bg-[#0D0D0D] shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-xl font-bold accent-gradient">Krupakar</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-8">
+                        <a href="#home" class="nav-link active-nav text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="#about" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="#skills" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Skills</a>
+                        <a href="#projects" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                        <a href="#contact" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#1A1A1A]">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white">About</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white">Skills</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white">Projects</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#9D00FF]/10 to-[#00FFFF]/10 opacity-30"></div>
+            <div class="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-10"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4">Hi, I'm <span class="accent-gradient">Krupakar Gurije</span></h1>
+                <div class="text-2xl md:text-3xl mb-6">
+                    <span id="typed" class="accent-gradient"></span>
+                    <span class="typing-cursor"></span>
+                </div>
+                <p class="text-lg text-gray-300 mb-8 max-w-lg">Computer Science(IT) undergraduate passionate    about  designing scalable, distributed, and fault-tolerant systems. Skilled in algorithm
+                    design, data structures, and OOP, with hands-on experience in AWS, GCP and Firebase    methodologies. Committed to ownership,
+                    customer obsession, and delivering high-quality, impactful solutions</p>
+                <div class="flex space-x-4">
+                    <a href="#projects" class="btn-hover-effect px-6 py-3 rounded-full bg-gradient-to-r from-[#9D00FF] to-[#00FFFF] text-white font-medium hover:shadow-lg transition-all duration-300">
+                        View Projects
+                    </a>
+                    <a href="#contact" class="btn-hover-effect px-6 py-3 rounded-full border-2 border-[#00FFFF] text-white font-medium hover:bg-[#00FFFF]/10 transition-all duration-300">
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+            
+            <div class="md:w-1/2 flex justify-center">
+                <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-gradient floating">
+                    <img src="assets/krupakar_profile_pic.jpg" 
+                         alt="Krupakar Gurije" 
+                         class="w-full h-full object-cover">
+                    <!-- <div class="absolute inset-0 bg-gradient-to-t from-[#9D00FF]/30 to-[#00FFFF]/30"></div> -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-down">
+            <a href="#about" class="text-gray-300 hover:text-[#00FFFF]">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-12 text-center">
+                <span class="border-b-4 border-[#00FFFF] pb-2">About Me</span>
+            </h2>
+            
+            <div class="section-panel p-8 md:p-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Who am I?</h3>
+                        <p class="text-gray-300 mb-6">
+                            I’m a 3rd-year B.Tech student in Computer Science Engineering (IT) at ACE College of Engineering, Hyderabad, maintaining a CGPA of 8.0. I’m passionate about Android Development and Full Stack Development, with hands-on experience in building applications that combine clean design, robust functionality, and scalable architecture. I enjoy solving real-world problems through technology and continuously expanding my skills in modern frameworks and cloud platforms.
+                        </p>
+                        <p class="text-gray-300 mb-6">
+                            My journey in technology began in school, where I developed a fascination for programming and problem-solving. Since then, I've been on a continuous learning path, exploring various domains of computer science.
+                        </p>
+                        <p class="text-gray-300">
+                            When I'm not coding, you can find me reading about new technologies, contributing to open-source projects, or solving problems on competitive programming platforms.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Education</h3>
+                        <div class="space-y-6 relative">
+                            <!-- Timeline Item 1 -->
+                            <div class="relative pl-10 timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="bg-[#252525] p-4 rounded-lg">
+                                    <h4 class="font-bold text-lg">B.Tech in Computer Science Engineering (IT - information technology)</h4>
+                                    <p class="text-[#00FFFF]">ACE Engineer College, Hyderabad</p>
+                                    <p class="text-gray-400">2023 - Present | CGPA: 8.0</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Timeline Item 2 -->
+                            <div class="relative pl-10 timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="bg-[#252525] p-4 rounded-lg">
+                                    <h4 class="font-bold text-lg">Higher Secondary (12th Grade)</h4>
+                                    <p class="text-[#00FFFF]">SRR Junior College</p>
+                                    <p class="text-gray-400">2021 - 2023 | Percentage: 72%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-[#0F0F0F]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-12 text-center">
+                <span class="border-b-4 border-[#9D00FF] pb-2">My Skills</span>
+            </h2>
+            
+            <div class="section-panel p-8 md:p-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Programming Languages -->
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-code mr-2 text-[#00FFFF]"></i> Programming Languages
+                        </h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#00FFFF]/30">C++(advance)</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#00FFFF]/30">Java</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#00FFFF]/30">C</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#00FFFF]/30">Dart</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#00FFFF]/30">Python (Intermediate)</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Web Development -->
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-globe mr-2 text-[#9D00FF]"></i> Web Development
+                        </h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#9D00FF]/30"> HTML, CSS, JavaScript,Bootstrap</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#9D00FF]/30">Angular / React.js</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#9D00FF]/30">Node.js, Express.js</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#9D00FF]/30">Java (Spring Boot)</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#9D00FF]/30">REST API</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#9D00FF]/30">AWS, Firebase, Google Cloud Platform (GCP)</span>
+                        </div>
+                    </div>
+                    
+                    <!-- AI/ML -->
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 flex items-center">
+                            <i class="fa-brands fa-android mr-2 text-[#3DDC84]"></i> Android Development
+                        </h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#00FFFF]/30">Dart</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#00FFFF]/30">Flutter</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#00FFFF]/30">Material Design</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#00FFFF]/30">Firebase</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#00FFFF]/30">Firebase Firestore</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Other Skills -->
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 flex items-center">
+                            <i class="fas fa-cogs mr-2 text-[#9D00FF]"></i> Other Skills
+                        </h3>
+                        <div class="flex flex-wrap gap-3">
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#9D00FF]/30">Data Structures</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#9D00FF]/30">Algorithms</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#9D00FF]/30">Problem Solving</span>
+                            <span class="skill-pill px-4 py-2 rounded-full bg-[#252525] border border-[#9D00FF]/30">Git</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-12 text-center">
+                <span class="border-b-4 border-[#00FFFF] pb-2">My Projects</span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card section-panel p-6 rounded-lg">
+                    <div class="project-card-inner">
+                        <div class="h-48 overflow-hidden rounded-lg mb-4">
+                            <img src="assets/skillswap.webp" 
+                                 alt="AI Project" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">SkillSwap – Global Skill Exchange Platform</h3>
+                        <p class="text-gray-300 mb-4">A web and mobile platform that connects users worldwide to exchange skills without monetary transactions. Users can offer their expertise, request skills from others, and collaborate through a secure, reputation-based system.<p>Tech Stack: Flutter, Dart, Firebase, Node.js, Express.js, MongoDB, AWS, REST APIs</p></p>
+                        <div class="flex space-x-3">
+                            <a href="https://github.com/krupakargurije/Skill-Swap" class="btn-hover-effect flex-1 text-center py-2 rounded-md bg-[#00FFFF]/10 border border-[#00FFFF] text-[#00FFFF] hover:bg-[#00FFFF]/20">
+                                View Code
+                            </a>
+                            <a href="#" class="btn-hover-effect flex-1 text-center py-2 rounded-md bg-gradient-to-r from-[#9D00FF] to-[#00FFFF] text-white hover:opacity-90">
+                                Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card section-panel p-6 rounded-lg">
+                    <div class="project-card-inner">
+                        <div class="h-48 overflow-hidden rounded-lg mb-4">
+                            <img src="assets/productExchange.jpg" 
+                                 alt="ML Project" 
+                                 class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">ExchangeMyProduct – Product Barter Platform</h3>
+                        <p class="text-gray-300 mb-4">A cross-platform mobile app enabling users to list items they no longer need and exchange them for other products, eliminating the need for monetary transactions. Designed to promote sustainable reuse and community-driven trading.</p>
+                        <div class="flex space-x-3">
+                            <a href="https://github.com/krupakargurije/ExchangeMyProducts" class="btn-hover-effect flex-1 text-center py-2 rounded-md bg-[#00FFFF]/10 border border-[#00FFFF] text-[#00FFFF] hover:bg-[#00FFFF]/20">
+                                View Code
+                            </a>
+                            <a href="#" class="btn-hover-effect flex-1 text-center py-2 rounded-md bg-gradient-to-r from-[#9D00FF] to-[#00FFFF] text-white hover:opacity-90">
+                                Live Demo
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-[#0F0F0F]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold mb-12 text-center">
+                <span class="border-b-4 border-[#9D00FF] pb-2">Get In Touch</span>
+            </h2>
+            
+            <div class="section-panel p-8 md:p-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6">Let's Connect</h3>
+                        <p class="text-gray-300 mb-8">
+                            I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision. Feel free to reach out through any of the platforms below.
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-[#00FFFF] text-xl mr-4"></i>
+                                <span class="text-gray-300">krupakargurije@gmail.com</span>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-[#9D00FF] text-xl mr-4"></i>
+                                <span class="text-gray-300">Hyderabad, Telangana, India</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="text-lg font-bold mb-4">Follow Me</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/krupakargurije" target="_blank" class="social-icon">
+                                    <i class="fab fa-github text-2xl"></i>
+                                </a>
+
+                                <a href="https://leetcode.com/u/Gurije_krupakar/" target="_blank" class="social-icon">
+                                    <i class="fas fa-code text-2xl"></i>
+                                </a>
+
+                                <a href="https://in.linkedin.com/in/gurije-krupakar" target="_blank" class="social-icon">
+                                    <i class="fa-brands fa-linkedin-in text-2xl text-[#0A66C3]"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6">Send Me a Message</h3>
+                        <form class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-gray-300 mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-2 rounded-lg bg-[#252525] border border-[#333] focus:outline-none focus:ring-2 focus:ring-[#00FFFF] text-white">
+                            </div>
+                            
+                            <div>
+                                <label for="email" class="block text-gray-300 mb-2">Your Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-2 rounded-lg bg-[#252525] border border-[#333] focus:outline-none focus:ring-2 focus:ring-[#00FFFF] text-white">
+                            </div>
+                            
+                            <div>
+                                <label for="subject" class="block text-gray-300 mb-2">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-2 rounded-lg bg-[#252525] border border-[#333] focus:outline-none focus:ring-2 focus:ring-[#00FFFF] text-white">
+                            </div>
+                            
+                            <div>
+                                <label for="message" class="block text-gray-300 mb-2">Message</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-2 rounded-lg bg-[#252525] border border-[#333] focus:outline-none focus:ring-2 focus:ring-[#00FFFF] text-white"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn-hover-effect w-full px-6 py-3 rounded-full bg-gradient-to-r from-[#9D00FF] to-[#00FFFF] text-white font-medium hover:shadow-lg transition-all duration-300">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-[#0A0A0A]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">
+                &copy; 2025 Krupakar Gurije. All rights reserved.
+            </p>
+            <div class="mt-4">
+                <a href="#home" class="text-gray-400 hover:text-[#00FFFF] transition-colors">
+                    <i class="fas fa-arrow-up"></i> Back to Top
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Typing animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const typed = new Typed('#typed', {
+                strings: ['Android Developer','Full Stack Developer'],
+                typeSpeed: 50,
+                backSpeed: 30,
+                loop: true,
+                showCursor: false
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        document.getElementById('mobile-menu').classList.add('hidden');
+                    }
+                });
+            });
+
+            // Active navigation link highlighting
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active-nav');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active-nav');
+                    }
+                });
+            });
+
+            // Project card hover effect enhancement
+            const projectCards = document.querySelectorAll('.project-card');
+            projectCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const angleY = (x - centerX) / 20;
+                    const angleX = (centerY - y) / 20;
+                    
+                    card.querySelector('.project-card-inner').style.transform = `rotateY(${angleY}deg) rotateX(${angleX}deg)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.querySelector('.project-card-inner').style.transform = 'rotateY(0) rotateX(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
